@@ -1,0 +1,13 @@
+ffmpeg -i testmov.mov -vf "transpose=1" -metadata Model="iPhone 3GS" -vcodec copy -acodec copy out2.mp4
+
+
+mencoder -vf rotate=2 -o output.avi -oac pcm -ovc lavc input.mov
+
+mencoder -oac lavc -ovc lavc -of mpeg -mpegopts format=DVD:tsaf -vf rotate=1,harddup -srate 48000 -af lavcresample=48000 -lavcopts vcodec=mpeg2video:vrc_buf_size=1835:vrc_maxrate=9800:vbitrate=5000:keyint=18:vstrict=0:acodec=ac3:abitrate=192 -ofps 30000/1001 -o "testmov2.mpg"  "testmov.mov"
+
+for mencoder (only works AVI output)
+Code:
+ mencoder -ovc copy -oac copy file,avi -info name="Dancing Bear" -info comment="File Title Created with Mencoder Info tag "  -o outputfile.avi
+There's also ogmtools as well with which you can metadata to files put in the ogm container using ogmmerge, unlike mkvtoolsnix there is no gui 
+Code:
+ogmmerge --title "Dancing  Bear" --comment "File Title Created Using OgmMerge" file.avi  -o outputfile.ogm
